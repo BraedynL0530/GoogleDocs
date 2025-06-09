@@ -1,0 +1,27 @@
+<!-- templates/docsPage.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Documents</title>
+    <link rel="stylesheet" href="{% static 'GoogleDocs/Home.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Your Documents</h1>
+        <button id="new-doc-btn">+ New Document</button>
+    </header>
+
+    <main>
+        <div class="docs-grid">
+            {% for doc in documents %}
+            <div class="doc-card">
+                <h2>{{ doc.title }}</h2>
+                <p>Last modified: {{ doc.last_modified }}</p>
+                <a href="{% url 'view_doc' doc.id %}" class="open-btn">Open</a>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>
