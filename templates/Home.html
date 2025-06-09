@@ -1,27 +1,47 @@
-<!-- templates/docsPage.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Documents</title>
-    <link rel="stylesheet" href="{% static 'GoogleDocs/Home.css' %}">
+    <title>DocsClone</title>
+       <!-- Bootstrap 4 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+    </style>
+        {% block content %}
+    {% endblock %}
 </head>
 <body>
-    <header>
-        <h1>Your Documents</h1>
-        <button id="new-doc-btn">+ New Document</button>
-    </header>
-
-    <main>
-        <div class="docs-grid">
-            {% for doc in documents %}
-            <div class="doc-card">
-                <h2>{{ doc.title }}</h2>
-                <p>Last modified: {{ doc.last_modified }}</p>
-                <a href="{% url 'view_doc' doc.id %}" class="open-btn">Open</a>
-            </div>
-            {% endfor %}
-        </div>
-    </main>
+    placeholding homepage
 </body>
 </html>
