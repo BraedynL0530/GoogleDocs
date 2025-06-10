@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{documentTitle}}</title>
+    {% load static %}
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+  <header class="top-bar">
+    <div class="title">{{documentTitle}}</div>
+    <nav class="menu-bar">
+      <button>File</button>
+      <button>Edit</button>
+      <button>View</button>
+      <button>Insert</button>
+      <button>Format</button>
+      <button>Tools</button>
+      <button>Extensions</button>
+      <button>Help</button>
+    </nav>
+    <div class="top-right">
+      <button class="share-btn">Share</button>
+      <div class="user-icon">S</div>
+    </div>
+  </header>
+
+  <main class="document-area">
+    <div class="ruler"></div>
+    <div class="page" contenteditable="true">
+      <!-- Editable content goes here -->
+      Start typing here...
+    </div>
+  </main>
+</body>
+</html>

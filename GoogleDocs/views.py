@@ -18,3 +18,5 @@ def register(response):
             return redirect("login")  # or another page
 
     return render(response, "register.html", {"form": form})
+def Doc(request):
+    return render(request, 'Editing.html',)

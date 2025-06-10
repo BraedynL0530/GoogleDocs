@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>DocsClone</title>
-       <!-- Bootstrap 4 CSS -->
+    <!-- Bootstrap 4 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -37,11 +37,123 @@
             font-size: 0.9rem;
             color: #6c757d;
         }
+
+        /* Docs Home Styles */
+        .docs-header {
+            background: white;
+            padding: 10px 30px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .docs-header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4285f4;
+        }
+
+        .docs-header .search-bar input {
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            padding: 5px 15px;
+            width: 300px;
+        }
+
+        .new-docs-section {
+            padding: 30px;
+        }
+
+        .template-card {
+            width: 120px;
+            height: 160px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: box-shadow 0.3s;
+        }
+
+        .template-card:hover {
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .docs-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .recent-docs {
+            padding: 0 30px 30px;
+        }
+
+        .doc-thumbnail {
+            width: 160px;
+            height: 200px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .doc-thumbnail:hover {
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+        }
+
     </style>
-        {% block content %}
+    {% block content %}
     {% endblock %}
 </head>
 <body>
-    placeholding homepage
+
+    <!-- Docs Clone Header -->
+    <div class="docs-header">
+        <div class="logo">DocsClone</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search documents..." />
+        </div>
+        <div class="user-icon">
+            <span class="badge badge-primary rounded-circle p-2">S</span>
+        </div>
+    </div>
+
+    <!-- Start New Document Section -->
+    <div class="new-docs-section">
+        <h5>Start a new document</h5>
+        <div class="docs-grid mt-3">
+            <div class="template-card">
+                <div>+</div>
+            </div>
+            <!-- Add more templates here if needed -->
+        </div>
+    </div>
+
+    <!-- Recent Documents Section -->
+    <div class="recent-docs">
+        <h5>Recent documents</h5>
+        <div class="docs-grid mt-3">
+            <div class="doc-thumbnail">
+                Untitled document
+            </div>
+            <div class="doc-thumbnail">
+                Meeting Notes
+            </div>
+            <div class="doc-thumbnail">
+                Project Plan
+            </div>
+            <!-- Add more documents as needed -->
+        </div>
+    </div>
+
 </body>
 </html>
