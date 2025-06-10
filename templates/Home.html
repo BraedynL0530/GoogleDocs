@@ -131,7 +131,7 @@
     <div class="new-docs-section">
         <h5>Start a new document</h5>
         <div class="docs-grid mt-3">
-            <div class="template-card">
+            <div class="template-card" onclick="window.location.href='{% url 'create_document' %}'">
                 <div>+</div>
             </div>
             <!-- Add more templates here if needed -->
@@ -139,21 +139,11 @@
     </div>
 
     <!-- Recent Documents Section -->
-    <div class="recent-docs">
-        <h5>Recent documents</h5>
-        <div class="docs-grid mt-3">
-            <div class="doc-thumbnail">
-                Untitled document
-            </div>
-            <div class="doc-thumbnail">
-                Meeting Notes
-            </div>
-            <div class="doc-thumbnail">
-                Project Plan
-            </div>
-            <!-- Add more documents as needed -->
-        </div>
+    {% for doc in documents %}
+    <div class="doc-thumbnail" onclick="window.location.href='{% url 'edit_document' doc.id %}'">
+        {{ doc.title }}
     </div>
+{% endfor %}
 
 </body>
 </html>

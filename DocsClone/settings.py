@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'GoogleDocs.apps.GoogledocsConfig',
     'crispy_forms',
     "crispy_bootstrap4",
+
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"

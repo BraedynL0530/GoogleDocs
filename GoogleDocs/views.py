@@ -1,8 +1,8 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-
+from .models import Document
 import GoogleDocs
 
 
@@ -18,5 +18,12 @@ def register(response):
             return redirect("login")  # or another page
 
     return render(response, "register.html", {"form": form})
-def Doc(request):
-    return render(request, 'Editing.html',)
+def create_document(request):
+    doc = Document.objects.create()
+    return redirect('edit_document', doc_id=doc.id)
+def edit_document(request, doc_id):
+    doc = get_object_or_404(Document, id=doc_id)
+    return render(request, 'Editing.html', {
+        'documentTitle': doc.title,
+        'doc': doc
+    })
