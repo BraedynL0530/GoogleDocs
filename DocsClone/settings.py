@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'GoogleDocs.apps.GoogledocsConfig',
     'crispy_forms',
     "crispy_bootstrap4",
+    'channels',
 
 ]
 
@@ -75,7 +76,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'DocsClone.wsgi.application'
+ASGI_APPLICATION = 'DocsClone.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

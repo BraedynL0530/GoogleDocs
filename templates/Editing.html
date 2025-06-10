@@ -32,5 +32,28 @@
   {{ doc.content|safe }}
 </div>
   </main>
+
+  <!-- if needed go back to previous git commits if this breaks anything, meant for real time -->
+< <script>
+    const docId = document.body.dataset.docId;  // ✅ safer than using {{ doc.id }} directly
+    const socket = new WebSocket(`ws://${window.location.host}/ws/edit/${docId}/`);
+    const page = document.querySelector('.page');
+
+    let isUpdating = false;
+
+    page.addEventListener('input', () => {
+      if (isUpdating) return;
+      socket.send(JSON.stringify({ message: page.innerHTML }));
+    });
+
+    socket.onmessage = function (e) {
+      const data = JSON.parse(e.data);
+      if (data.message !== page.innerHTML) {
+        isUpdating = true;
+        page.innerHTML = data.message;
+        isUpdating = false;
+      }
+    };
+  </script>
 </body>
 </html>
