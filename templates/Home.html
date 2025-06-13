@@ -38,7 +38,7 @@
             color: #6c757d;
         }
 
-        /* Docs Home Styles */
+        /* Docs Home Styles putting the rest in its own style */
         .docs-header {
             background: white;
             padding: 10px 30px;
@@ -137,13 +137,14 @@
             <!-- Add more templates here if needed -->
         </div>
     </div>
-
+    <hr>
     <!-- Recent Documents Section -->
+    <div class="docs-grid">
     {% for doc in documents %}
     <div class="doc-thumbnail" onclick="window.location.href='{% url 'edit_document' doc.id %}'">
         {{ doc.title }}
     </div>
 {% endfor %}
-
+</div>
 </body>
 </html>

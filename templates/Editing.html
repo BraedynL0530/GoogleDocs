@@ -1,15 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{documentTitle}}</title>
-    {% load static %}
+  <title>{{ documentTitle }}</title>
+  <meta name="csrf-token" content="{{ csrf_token }}"> <!-- CSRF for AJAX -->
   <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
+
   <header class="top-bar">
-    <div class="title">{{documentTitle}}</div>
+    <input type="text" id="doc-title" value="{{ documentTitle }}" class="title">
     <nav class="menu-bar">
       <button>File</button>
       <button>Edit</button>
@@ -29,13 +31,12 @@
   <main class="document-area">
     <div class="ruler"></div>
     <div class="page" contenteditable="true">
-  {{ doc.content|safe }}
-</div>
+      {{ doc.content|safe }}
+    </div>
   </main>
 
-  <!-- if needed go back to previous git commits if this breaks anything, meant for real time -->
-< <script>
-    const docId = document.body.dataset.docId;  // ✅ safer than using {{ doc.id }} directly
+  <script>
+    const docId = "{{ doc.id }}";  // ✅ Inline from Django context
     const socket = new WebSocket(`ws://${window.location.host}/ws/edit/${docId}/`);
     const page = document.querySelector('.page');
 
@@ -54,6 +55,28 @@
         isUpdating = false;
       }
     };
+
+    // Save title via AJAX POST
+    const titleInput = document.getElementById("doc-title");
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    titleInput.addEventListener('blur', () => {
+      const newTitle = titleInput.value;
+
+      fetch(`/update-title/${docId}/`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken
+        },
+        body: JSON.stringify({ title: newTitle })
+      }).then(response => {
+        if (!response.ok) {
+          alert("Failed to save title");
+        }
+      });
+    });
   </script>
+
 </body>
 </html>

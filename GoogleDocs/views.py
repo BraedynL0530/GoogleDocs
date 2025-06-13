@@ -2,13 +2,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import Document
 import GoogleDocs
-
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 def home(request):
-    return render(request, 'Home.html',)
+    documents = Document.objects.order_by('-created_at')#Recent docs, for now by create date :c
+    return render(request, 'home.html', {'documents': documents})
 def register(response):
     form = UserCreationForm()
     if response.method == "POST":
@@ -27,3 +31,12 @@ def edit_document(request, doc_id):
         'documentTitle': doc.title,
         'doc': doc
     })
+
+@csrf_exempt
+def update_title(request, doc_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        doc = Document.objects.get(id=doc_id)
+        doc.title = data['title']
+        doc.save()
+        return JsonResponse({'status': 'ok'})

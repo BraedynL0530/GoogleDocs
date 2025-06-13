@@ -1,6 +1,6 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-
+#consumers.py = django views but for channels/websockets, can request info recive and send
 class DocumentConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.doc_id = self.scope['url_route']['kwargs']['doc_id']
