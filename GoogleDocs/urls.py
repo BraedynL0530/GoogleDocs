@@ -7,5 +7,6 @@ urlpatterns = [
     path('edit/<uuid:doc_id>/', v.edit_document, name='edit_document'),
     path('update-title/<uuid:doc_id>/', v.update_title, name='update_title'),
     path('create/', v.create_document, name='create_document'),
+    path('update-content/<uuid:doc_id>/', v.update_content, name='update_content'),
 
 ]

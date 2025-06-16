@@ -40,3 +40,11 @@ def update_title(request, doc_id):
         doc.title = data['title']
         doc.save()
         return JsonResponse({'status': 'ok'})
+
+@csrf_exempt
+def update_content(request, doc_id):
+    data = json.loads(request.body)
+    doc = Document.objects.get(id=doc_id)
+    doc.content = data['content']
+    doc.save()
+    return JsonResponse({'status': 'saved'})

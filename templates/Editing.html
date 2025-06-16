@@ -22,6 +22,8 @@
       <button>Extensions</button>
       <button>Help</button>
     </nav>
+      <div id="save-status" style="font-size: 0.9rem; color: green; margin-top: 5px;"></div>
+
     <div class="top-right">
       <button class="share-btn">Share</button>
       <div class="user-icon">S</div>
@@ -36,7 +38,9 @@
   </main>
 
   <script>
-    const docId = "{{ doc.id }}";  // ✅ Inline from Django context
+      //sorry for bad js and html practice static files are sooooooo annoying in django T-T
+      //websockets
+    const docId = "{{ doc.id }}";
     const socket = new WebSocket(`ws://${window.location.host}/ws/edit/${docId}/`);
     const page = document.querySelector('.page');
 
@@ -76,6 +80,31 @@
         }
       });
     });
+    setInterval(() => {
+  autosaveContent();
+}, 5000);  // every 5 seconds saves actual content of the docs
+
+    //autosave!
+    function autosaveContent() {
+  const content = document.querySelector('.page').innerHTML;
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+  fetch(`/update-content/${docId}/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken
+    },
+    body: JSON.stringify({ content })
+  }).then(response => {
+    if (!response.ok) {
+      console.error("Autosave failed.");
+    }
+    if (response.ok) {
+    document.getElementById("save-status").textContent = "✅ Saved";
+  }
+  });
+}
   </script>
 
 </body>
