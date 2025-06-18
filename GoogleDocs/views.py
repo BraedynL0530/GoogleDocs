@@ -1,17 +1,27 @@
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from .models import Document
 import GoogleDocs
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 import json
 
 # Create your views here.
 def home(request):
-    documents = Document.objects.order_by('-created_at')#Recent docs, for now by create date :c
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    owned_docs = Document.objects.filter(owner=request.user)
+    shared_docs = request.user.shared_docs.all()  # related_name='shared_docs' from your model
+
+    documents = owned_docs | shared_docs  # combine both querysets
+    documents = documents.distinct().order_by('-created_at')
+
     return render(request, 'home.html', {'documents': documents})
 def register(response):
     form = UserCreationForm()
@@ -23,16 +33,23 @@ def register(response):
 
     return render(response, "register.html", {"form": form})
 def create_document(request):
-    doc = Document.objects.create()
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    doc = Document.objects.create(owner=request.user)
     return redirect('edit_document', doc_id=doc.id)
+@login_required
 def edit_document(request, doc_id):
     doc = get_object_or_404(Document, id=doc_id)
+    if request.user != doc.owner and request.user not in doc.shared_with.all():
+        return HttpResponseForbidden()
+
     return render(request, 'Editing.html', {
         'documentTitle': doc.title,
         'doc': doc
     })
 
-@csrf_exempt
+
 def update_title(request, doc_id):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -41,10 +58,26 @@ def update_title(request, doc_id):
         doc.save()
         return JsonResponse({'status': 'ok'})
 
-@csrf_exempt
+
 def update_content(request, doc_id):
     data = json.loads(request.body)
     doc = Document.objects.get(id=doc_id)
     doc.content = data['content']
     doc.save()
     return JsonResponse({'status': 'saved'})
+@require_POST
+def share_document(request, doc_id):
+    doc = get_object_or_404(Document, id=doc_id)
+
+    if doc.owner != request.user:
+        return HttpResponseForbidden("Only the owner can share this document.")
+
+    data = json.loads(request.body)
+    username = data.get('username')
+
+    try:
+        user_to_share = User.objects.get(username=username)
+        doc.shared_with.add(user_to_share)
+        return JsonResponse({'status': 'shared'})
+    except User.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)

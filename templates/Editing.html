@@ -25,7 +25,8 @@
       <div id="save-status" style="font-size: 0.9rem; color: green; margin-top: 5px;"></div>
 
     <div class="top-right">
-      <button class="share-btn">Share</button>
+      <input type="text" id="share-username" placeholder="Username to share with">
+    <button onclick="shareDoc()">Share</button>
       <div class="user-icon">S</div>
     </div>
   </header>
@@ -103,6 +104,26 @@
     if (response.ok) {
     document.getElementById("save-status").textContent = "✅ Saved";
   }
+  });
+}
+function shareDoc() {
+  const username = document.getElementById("share-username").value;
+
+  fetch(`/share/${docId}/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrfToken
+    },
+    body: JSON.stringify({ username: username })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === 'shared') {
+      alert("✅ Document shared!");
+    } else {
+      alert("❌ " + data.message);
+    }
   });
 }
   </script>
