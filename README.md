@@ -19,11 +19,11 @@ A real-time collaborative document editor built with Django.
   
 
 ## Setup
--Clone this repo
--Install dependencies(planing to make a requirement.txt im having issues with pushing)
--Put your own secert key on i changed mine from previous commits(bad practice, ik)
+- Clone this repo
+- Install dependencies(planing to make a requirement.txt im having issues with pushing)
+- Put your own secert key on i changed mine from previous commits(bad practice, ik)
 
 
 ## Final Notes
--This is really just here to improve my first harder project at 15 next one i plan to have no Ai invloved at all
+- This is really just here to improve my first harder project at 15 next one i plan to have no Ai invloved at all
 thats all thanks for checking this out!
