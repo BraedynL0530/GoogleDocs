@@ -30,7 +30,7 @@ dist/
 # Django migrations
 */migrations/*.pyc
 */migrations/__pycache__/
-
+0002_document_owners.sharedwith.py
 # Logs
 *.log
 
