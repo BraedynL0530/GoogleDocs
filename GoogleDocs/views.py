@@ -12,9 +12,8 @@ from django.http import JsonResponse, HttpResponseForbidden
 import json
 
 # Create your views here.
+@login_required
 def home(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
 
     owned_docs = Document.objects.filter(owner=request.user)
     shared_docs = request.user.shared_docs.all()  # related_name='shared_docs' from your model
