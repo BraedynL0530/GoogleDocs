@@ -14,6 +14,11 @@ import json
 # Create your views here.
 @login_required
 def home(request):
+    try:
+        shared_docs = request.user.shared_docs.all()
+    except Exception as e:
+        shared_docs = Document.objects.none()  # fallback to empty
+        print("SHARED_DOCS ERROR:", e)
 
     owned_docs = Document.objects.filter(owner=request.user)
     shared_docs = request.user.shared_docs.all()  # related_name='shared_docs' from your model
