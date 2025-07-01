@@ -140,11 +140,15 @@
     <hr>
     <!-- Recent Documents Section -->
     <div class="docs-grid">
+    {% if documents %}
     {% for doc in documents %}
     <div class="doc-thumbnail" onclick="window.location.href='{% url 'edit_document' doc.id %}'">
         {{ doc.title }}
     </div>
 {% endfor %}
+    {% else %}
+  <p>No documents found.</p>
+{% endif %}
 </div>
 </body>
 </html>
