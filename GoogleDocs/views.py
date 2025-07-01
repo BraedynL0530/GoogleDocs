@@ -85,3 +85,9 @@ def share_document(request, doc_id):
         return JsonResponse({'status': 'shared'})
     except User.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
+
+
+def check_template(request):
+    template_path = os.path.join(settings.BASE_DIR, 'templates', 'home.html')
+    exists = os.path.exists(template_path)
+    return HttpResponse(f"Template exists? {exists} at {template_path}")
