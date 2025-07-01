@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
@@ -6,9 +8,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
+from DocsClone import settings
 from .models import Document
 import GoogleDocs
-from django.http import JsonResponse, HttpResponseForbidden
+from django.http import JsonResponse, HttpResponseForbidden, HttpResponse
 import json
 
 # Create your views here.
