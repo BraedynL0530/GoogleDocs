@@ -1,6 +1,6 @@
 //websockets
 document.addEventListener('DOMContentLoaded', () => {
-    const socket = new WebSocket(`wss://${window.location.host}/wss/edit/${docId}/`);
+    const socket = new WebSocket(`wss://${window.location.host}/ws/edit/${docId}/`);
     const page = document.querySelector('.page');
 
     let isUpdating = false;
