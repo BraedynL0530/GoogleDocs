@@ -29,7 +29,7 @@ def home(request):
     documents = owned_docs | shared_docs  # combine both querysets
     documents = documents.distinct().order_by('-created_at')
 
-    return render(request, 'home.html', {'documents': documents})
+    return render(request, 'Home.html', {'documents': documents})
 def register(response):
     form = UserCreationForm()
     if response.method == "POST":
