@@ -80,7 +80,10 @@ ASGI_APPLICATION = 'DocsClone.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [config("REDIS_URL", default="redis://localhost:6379")],
+        },
     },
 }
 
