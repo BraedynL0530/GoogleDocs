@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from decouple import config, Csv
 import dj_database_url
-
+import urllib.parse #testing if this will fix realtime
 
 SECRET_KEY = config('DJANGO_SECRET_KEY', default='fallback-key')
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -78,15 +78,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'DocsClone.wsgi.application'
 ASGI_APPLICATION = 'DocsClone.asgi.application'
 
+
+redis_url = os.environ.get("REDIS_URL")  # Render should set this in your env vars
+parsed_url = urllib.parse.urlparse(redis_url)
+
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [config("REDIS_URL", default="redis://localhost:6379")],
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [{
+                "host": parsed_url.hostname,
+                "port": parsed_url.port,
+                "password": parsed_url.password,
+            }],
         },
     },
 }
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
