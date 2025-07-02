@@ -56,7 +56,7 @@ def edit_document(request, doc_id):
         'doc': doc
     })
 
-
+@require_POST
 def update_title(request, doc_id):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -66,6 +66,7 @@ def update_title(request, doc_id):
         return JsonResponse({'status': 'ok'})
 
 
+@require_POST
 def update_content(request, doc_id):
     data = json.loads(request.body)
     doc = Document.objects.get(id=doc_id)
