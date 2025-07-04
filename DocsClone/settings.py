@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
 
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=Csv())
 ROOT_URLCONF = 'DocsClone.urls'
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'DocsClone.wsgi.application'
 ASGI_APPLICATION = 'DocsClone.asgi.application'
 
 
-redis_url = os.environ.get("REDIS_URL")  # Render should set this in your env vars
+redis_url = os.environ.get("REDIS_URL")
 parsed_url = urllib.parse.urlparse(redis_url)
 
 CHANNEL_LAYERS = {
@@ -94,6 +94,7 @@ CHANNEL_LAYERS = {
                 "host": parsed_url.hostname,
                 "port": parsed_url.port or 6379,
                 "password": parsed_url.password,
+                "ssl": True,
             }],
         },
     },
