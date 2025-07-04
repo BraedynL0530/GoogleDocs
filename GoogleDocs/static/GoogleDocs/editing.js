@@ -4,13 +4,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const page = document.querySelector('.page');
 
     let isUpdating = false;
+    let isTyping = false;
 
     page.addEventListener('input', () => {
+      isTyping = true;
       if (isUpdating) return;
       socket.send(JSON.stringify({ message: page.innerHTML }));
+      setTimeout(() => {
+        isTyping = false;
+    }, 500);
     });
 
+
+
     socket.onmessage = function (e) {
+        if (isUpdating) return;
+
       const data = JSON.parse(e.data);
       if (data.message !== page.innerHTML) {
         isUpdating = true;
