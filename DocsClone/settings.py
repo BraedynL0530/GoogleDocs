@@ -88,7 +88,7 @@ CHANNEL_LAYERS = {
         "CONFIG": {
             "hosts": [{
                 "host": parsed_url.hostname,
-                "port": parsed_url.port,
+                "port": int(parsed_url.port),
                 "password": parsed_url.password,
             }],
         },
