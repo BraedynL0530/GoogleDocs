@@ -16,13 +16,11 @@ import GoogleDocs.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DocsClone.settings')
 
-# Base Django ASGI app
 django_asgi_app = get_asgi_application()
 
-# Combined ASGI application with static + websocket
 application = ProtocolTypeRouter({
-    'http': ASGIStaticFilesHandler(django_asgi_app),  # serve /static/ during development
-    'websocket': AuthMiddlewareStack(
+    "http": django_asgi_app,
+    "websocket": AuthMiddlewareStack(
         URLRouter(
             GoogleDocs.routing.websocket_urlpatterns
         )
