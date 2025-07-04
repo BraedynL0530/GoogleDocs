@@ -15,7 +15,6 @@ import os
 from decouple import config, Csv
 import dj_database_url
 import urllib.parse #testing if this will fix realtime
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 SECRET_KEY = config('DJANGO_SECRET_KEY', default='fallback-key')
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -58,6 +57,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=Csv())
 ROOT_URLCONF = 'DocsClone.urls'
 
