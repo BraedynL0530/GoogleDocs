@@ -81,14 +81,14 @@ ASGI_APPLICATION = 'DocsClone.asgi.application'
 
 redis_url = os.environ.get("REDIS_URL")  # Render should set this in your env vars
 parsed_url = urllib.parse.urlparse(redis_url)
-
+port = parsed_url.port
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
             "hosts": [{
                 "host": parsed_url.hostname,
-                "port": int(parsed_url.port),
+                "port": int(port),
                 "password": parsed_url.password,
             }],
         },
