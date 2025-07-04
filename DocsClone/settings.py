@@ -15,6 +15,7 @@ import os
 from decouple import config, Csv
 import dj_database_url
 import urllib.parse #testing if this will fix realtime
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 SECRET_KEY = config('DJANGO_SECRET_KEY', default='fallback-key')
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=Csv())
 ROOT_URLCONF = 'DocsClone.urls'
@@ -140,7 +142,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # where collectstatic dumps your files
-
+STATICFILES_DIRS = [
+    BASE_DIR / 'GoogleDocs' / 'static',
+]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
