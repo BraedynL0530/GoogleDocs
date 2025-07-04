@@ -141,9 +141,6 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # where collectstatic dumps your files
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'GoogleDocs' / 'static',  # your app's static folder
-]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
