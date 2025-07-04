@@ -94,8 +94,8 @@ CHANNEL_LAYERS = {
                 "host": parsed_url.hostname,
                 "port": parsed_url.port or 6379,
                 "password": parsed_url.password,
-                "ssl": True,
             }],
+        "ssl": {},
         },
     },
 }
