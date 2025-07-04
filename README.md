@@ -1,6 +1,6 @@
 # GoogleDocs Clone
 
-A full-featured [real-time collaborative editor]([url](https://realtimecollaborativeeditor.onrender.com/)), inspired by Google Docs.
+A full-featured [real-time collaborative editor]([url]('https://realtimecollaborativeeditor.onrender.com/')), inspired by Google Docs.
 
 ## 🚀 Features
 - ✍️ Real-time editing with operational transforms (OT)
