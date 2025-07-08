@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   });
 }
-function shareDoc() {
-  const username = document.getElementById("share-username").value;
+    window.shareDoc = function() {
+    const username = document.getElementById("share-username").value;
 
   fetch(`/share/${docId}/`, {
     method: "POST",
