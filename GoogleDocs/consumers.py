@@ -20,11 +20,16 @@ class DocumentConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             {
                 'type': 'send_update',
-                'message': message
+                'message': message,
+                'sender': self.channel_name  # Add sender tag
             }
         )
 
     async def send_update(self, event):
+        # Prevent sender from receiving their own message
+        if event['sender'] == self.channel_name:
+            return
+
         await self.send(text_data=json.dumps({
             'message': event['message']
         }))
