@@ -1,26 +1,61 @@
-# GoogleDocs Clone
+# 📝 GoogleDocs Clone
 
-A full-featured real-time collaborative editor, inspired by Google Docs.
+A full-featured **real-time collaborative editor**, inspired by Google Docs — built with WebSockets and love.
 
-DEMO LINK: https://realtimecollaborativeeditor.onrender.com/
+🌐 **Live Demo:** [realtimecollaborativeeditor.onrender.com](https://realtimecollaborativeeditor.onrender.com)
+
+---
 
 ## 🚀 Features
-- ✍️ Real-time editing with operational transforms (OT)
-- 👥 Multi-user presence (cursors, read-only constraints)
-- 🔑 Optional authentication integration
-- 💾 Autosave & recover draft functionality
-- 🛠️ Rich-text formatting: headings, bold/italic, lists
 
-## 🛠️ Tech Stack
-- Frontend: React + [SlateJS/Quill/ProseMirror]
-- Backend: Node/Express + WebSocket (or Django Channels)
-- Database: MongoDB/PostgreSQL for document storage
+- ✍️ Real-time collaborative editing (WebSockets + Operational Transforms)  
+- 🧑‍🤝‍🧑 Multi-user presence: live cursors, editing locks, viewer/editor modes  
+- 🔒 Optional user authentication  
+- 💾 Auto-save drafts & recover lost work  
+- 🎨 Rich-text formatting: headings, bold, italics, lists, etc.  
+- 🔁 Version control (coming soon!)
 
-## 🔧 Getting Started
+---
+
+## ⚙️ Tech Stack
+
+**Frontend**  
+- Vanilla JS, HTML, CSS (no framework needed)
+
+**Backend**  
+- Django + Django Channels (ASGI) for WebSockets  
+
+
+**Database**  
+- MongoDB / PostgreSQL
+- Redis for WebSocket layer + autosave cache
+
+---
+
+## 🧪 Local Setup
+
+Clone the repo and get the backend up and running:
+
 ```bash
 git clone https://github.com/BraedynL0530/GoogleDocs.git
 cd GoogleDocs
-# Backend
-cd backend && pip install -r requirements.txt && python manage.py migrate && python manage.py runserver
-# Frontend
-cd frontend && npm install && npm start
+
+
+## Backend
+cd backend
+python -m venv venv
+source venv/bin/activate  # or venv\Scripts\activate on Windows
+pip install -r requirements.txt
+
+##📄 Set Up .env
+
+Create a .env file in the backend folder with the following:
+
+SECRET_KEY=your_super_secret_django_key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0,your-render-url.com
+
+# Redis
+REDIS_URL=redis://localhost:6379
+
+Built by BraedynL0530
