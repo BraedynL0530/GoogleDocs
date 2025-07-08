@@ -9,8 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     page.addEventListener('input', () => {
       isTyping = true;
       if (isUpdating) return;
-      socket.send(JSON.stringify({ message: page.innerHTML }));
-      setTimeout(() => {
+      socket.send(JSON.stringify({ message: page.value }));
+
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(() => {
         isTyping = false;
     }, 500);
     });
@@ -21,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isUpdating) return;
 
       const data = JSON.parse(e.data);
-      if (data.message !== page.innerHTML) {
+      if (data.message !== page.value) {
         isUpdating = true;
-        page.innerHTML = data.message;
+        page.value = data.message;
         isUpdating = false;
       }
     };
@@ -54,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //autosave!
     function autosaveContent() {
-  const content = document.querySelector('.page').innerHTML;
+  const content = document.querySelector('.page').value;
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
   fetch(`/update-content/${docId}/`, {
