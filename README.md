@@ -12,7 +12,6 @@ A full-featured **real-time collaborative editor**, inspired by Google Docs — 
 - 🧑‍🤝‍🧑 Multi-user presence: live cursors, editing locks, viewer/editor modes  
 - 🔒 Optional user authentication  
 - 💾 Auto-save drafts & recover lost work  
-- 🎨 Rich-text formatting: headings, bold, italics, lists, etc.  
 - 🔁 Version control (coming soon!)
 
 ---
@@ -20,7 +19,7 @@ A full-featured **real-time collaborative editor**, inspired by Google Docs — 
 ## ⚙️ Tech Stack
 
 **Frontend**  
-- Vanilla JS, HTML, CSS (no framework needed)
+- Vanilla JS, HTML, CSS 
 
 **Backend**  
 - Django + Django Channels (ASGI) for WebSockets  
