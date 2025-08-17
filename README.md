@@ -2,7 +2,7 @@
 
 A full-featured **real-time collaborative editor**, inspired by Google Docs — built with WebSockets and love.
 
-🌐 **Live Demo:** [realtimecollaborativeeditor.onrender.com](https://realtimecollaborativeeditor.onrender.com)
+[🌐 **Live Demo:**](https://realtimecollaborativeeditor.onrender.com)
 
 ---
 
