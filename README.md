@@ -46,7 +46,7 @@ python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
 
-## 📄 Set Up .env
+## 📄 Set Up .env 
 
 Create a .env file in the backend folder with the following:
 
