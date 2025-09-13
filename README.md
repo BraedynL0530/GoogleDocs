@@ -2,7 +2,7 @@
 
 A full-featured **real-time collaborative editor**, inspired by Google Docs — built with WebSockets and love.
 
-[🌐 **Live Demo:**](https://realtimecollaborativeeditor.onrender.com)
+[🌐 **Live Demo:**](https://realtimecollaborativeeditor.onrender.com)  (sorry! I didnt know DB expired with render, assumed it just limited the use.)
 
 ---
 
@@ -26,7 +26,7 @@ A full-featured **real-time collaborative editor**, inspired by Google Docs — 
 
 
 **Database**  
-- MongoDB / PostgreSQL
+- PostgreSQL via render
 - Redis for WebSocket layer + autosave cache
 
 ---
